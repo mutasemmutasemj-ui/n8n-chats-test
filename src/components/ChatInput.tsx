@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Send, Mic, Image, StopCircle, FileText, Paperclip } from 'lucide-react';
+import { Send, Mic, Image, StopCircle, FileText, Paperclip, Camera } from 'lucide-react';
 
 interface ChatInputProps {
   onSendMessage: (content: string, type: 'text' | 'audio' | 'image' | 'file') => void;
@@ -13,6 +13,7 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
   const audioChunksRef = useRef<Blob[]>([]);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
   const [showAttachMenu, setShowAttachMenu] = useState(false);
 
   const handleSendText = () => {
@@ -78,6 +79,22 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
     setShowAttachMenu(false);
   };
 
+  const handleCameraCapture = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageUrl = event.target?.result as string;
+        onSendMessage(imageUrl, 'image');
+      };
+      reader.readAsDataURL(file);
+    }
+    if (cameraInputRef.current) {
+      cameraInputRef.current.value = '';
+    }
+    setShowAttachMenu(false);
+  };
+
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -111,6 +128,14 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
           className="hidden"
         />
         <input
+          ref={cameraInputRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          onChange={handleCameraCapture}
+          className="hidden"
+        />
+        <input
           ref={fileInputRef}
           type="file"
           onChange={handleFileSelect}
@@ -128,7 +153,16 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
           </button>
 
           {showAttachMenu && (
-            <div className="absolute bottom-full left-0 mb-2 bg-white rounded-xl shadow-xl border border-gray-200 p-1 flex flex-col gap-1 min-w-[150px] z-50">
+            <div className="absolute bottom-full left-0 mb-2 bg-white rounded-xl shadow-xl border border-gray-200 p-1 flex flex-col gap-1 min-w-[160px] z-50">
+              <button
+                onClick={() => cameraInputRef.current?.click()}
+                className="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-blue-50 rounded-lg text-right transition-colors"
+              >
+                <div className="p-1.5 bg-blue-100 rounded-lg">
+                  <Camera size={18} className="text-blue-600" />
+                </div>
+                <span className="font-medium">كاميرا</span>
+              </button>
               <button
                 onClick={() => imageInputRef.current?.click()}
                 className="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-blue-50 rounded-lg text-right transition-colors"
