@@ -1,6 +1,6 @@
 export interface Message {
   id: string;
-  type: 'text' | 'audio' | 'image' | 'file';
+  type: 'text' | 'audio' | 'image' | 'file' | 'video';
   content: string;
   sender: 'user' | 'bot';
   timestamp: Date;

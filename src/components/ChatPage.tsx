@@ -34,7 +34,7 @@ export default function ChatPage({ config }: ChatPageProps) {
     fetchMessages();
   }, [config.id]);
 
-  const sendToWebhook = async (content: string, type: 'text' | 'audio' | 'image' | 'file') => {
+  const sendToWebhook = async (content: string, type: 'text' | 'audio' | 'image' | 'file' | 'video') => {
     const userMessage: Message = {
       id: Date.now().toString(),
       type,

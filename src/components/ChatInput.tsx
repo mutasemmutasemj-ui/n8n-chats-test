@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { Send, Mic, Image, StopCircle, FileText, Paperclip, Camera } from 'lucide-react';
 
 interface ChatInputProps {
-  onSendMessage: (content: string, type: 'text' | 'audio' | 'image' | 'file') => void;
+  onSendMessage: (content: string, type: 'text' | 'audio' | 'image' | 'file' | 'video') => void;
   disabled?: boolean;
 }
 

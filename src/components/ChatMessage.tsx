@@ -34,8 +34,22 @@ export default function ChatMessage({ message }: ChatMessageProps) {
           <audio controls className="max-w-full w-full md:w-64">
             <source src={message.content} type="audio/webm" />
             <source src={message.content} type="audio/wav" />
+            <source src={message.content} type="audio/mpeg" />
+            <source src={message.content} type="audio/mp3" />
             متصفحك لا يدعم تشغيل الصوت
           </audio>
+        )}
+
+        {message.type === 'video' && (
+          <video
+            controls
+            className="max-w-full rounded-xl shadow-md"
+            style={{ maxHeight: '400px' }}
+          >
+            <source src={message.content} type="video/mp4" />
+            <source src={message.content} type="video/webm" />
+            متصفحك لا يدعم تشغيل الفيديو
+          </video>
         )}
 
         {message.type === 'file' && (() => {
