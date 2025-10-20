@@ -4,7 +4,7 @@ import ChatPage from './components/ChatPage';
 import { Menu, X } from 'lucide-react';
 
 const pages: PageConfig[] = [
-  { id: 'page1', name: 'DeepSeek Chat', webhookUrl: 'https://n8n.jadallah.work/webhook-test/page1' },
+  { id: 'page1', name: 'DeepSeek Chat', webhookUrl: 'https://n8n.jadallah.work/webhook/page1' },
   { id: 'page2', name: 'Voice', webhookUrl: 'https://n8n.jadallah.work/webhook-test/page2' },
   { id: 'page3', name: 'الصفحة الثالثة', webhookUrl: 'https://n8n.jadallah.work/webhook-test/page3' },
   { id: 'page4', name: 'الصفحة الرابعة', webhookUrl: 'https://n8n.jadallah.work/webhook-test/page4' },
